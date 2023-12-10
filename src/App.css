@@ -1,0 +1,152 @@
+/* App.css (or create a separate CSS file for your styles) */
+
+/* Header Styles */
+header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+header img {
+  width: 100px;
+  height: 100px;
+}
+
+/* Taglines Section Styles */
+section:nth-child(2) {
+  background-color: #f9f9f9;
+  padding: 20px;
+  text-align: center;
+}
+
+h2.animated-heading {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Image Section Styles */
+section:nth-child(3) {
+  text-align: center;
+  margin: 20px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Random Query and Generate AD Section Styles */
+section:nth-child(4) {
+  background-color: #f9f9f9;
+  padding: 20px;
+  text-align: center;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 5px;
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* App.css (or your CSS file) */
+
+/* ... (previous styles) ... */
+
+/* Random Query and Generate AD Section Styles */
+section:nth-child(4) {
+  background-color: #f9f9f9;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 15px 30px; /* Increased size */
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth color change */
+}
+
+button:hover {
+  background-color: #0056b3; /* Color change on hover */
+}
+
+input {
+  padding: 15px; /* Increased size */
+  border: 1px solid #ccc;
+  margin: 5px;
+  width: 100%; /* Full width */
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* App.css (or your CSS file) */
+
+/* Header Styles */
+header {
+  background-color: #333;
+  color: white;
+  display: flex; /* Add flex display */
+  align-items: center; /* Vertically center content */
+  padding: 20px;
+}
+
+header img {
+  width: 80px;
+  height: 80px;
+  margin-right: 10px; /* Add margin for spacing between the logo and text */
+}
+
+header h1 {
+  margin: 0; /* Remove default margin for h1 */
+}
+
+.typewriter-animation {
+  display: inline-block;
+  overflow: hidden;
+  animation: typewriter 1s steps(15) 1s forwards;
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+
+
+

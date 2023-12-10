@@ -1,0 +1,125 @@
+import React, { useState } from "react";
+
+function YourComponent() {
+  const [query, setQuery] = useState("");
+
+  const handleQueryChange = (e) => {
+    setQuery(e.target.value);
+  };
+}
+
+function ImageDisplay() {
+  const [isImageGenerated, setImageGenerated] = useState(false);
+
+  const generateImage = () => {
+    // Implement your logic for generating an image
+    // Set `isImageGenerated` to `true` when the image is ready
+    setImageGenerated(true);
+  };
+  // function ImageDisplay() {
+  //   const [isImageGenerated, setImageGenerated] = useState(false);
+
+  //   const generateeImage = () => {
+  //     // Implement your logic for generating an image
+  //     // Set `isImageGenerated` to `true` when the image is ready
+  //     setImageGenerated(true);
+  //   };
+  //   };
+
+  const generateeImage = () => {
+    // Implement your logic for generating an image based on the query
+  };
+
+  const generateRandomQuery = () => {
+    // Implement your logic for generating a random query
+  };
+
+  return (
+    <div className="App">
+      <div className="image-display">
+        {isImageGenerated ? (
+          <div className="animated-heading">
+            <h3>This is the product image generated</h3>
+          </div>
+        ) : null}
+        {isImageGenerated ? (
+          <img src="your_generated_image_url" alt="Generated Product" />
+        ) : null}
+      </div>
+      <div className="bottom-section">
+        <button onClick={generateRandomQuery}>Generate a random Query</button>
+        <input
+          type="text"
+          placeholder="Enter the product description"
+          // value={query}
+          // onChange={handleQueryChange}
+        />
+        <button onClick={generateeImage}>Generate Image</button>
+      </div>
+    </div>
+  );
+}
+export default ImageDisplay;
+// export default YourComponent;
+
+// // src/App.js
+// import React, { Component } from "react";
+// import "./App.css";
+
+// class App extends Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       userInput: "",
+//       generatedImage: "",
+//       generatedTaglines: [],
+//     };
+//   }
+
+//   handleInputChange = (event) => {
+//     this.setState({ userInput: event.target.value });
+//   };
+
+//   generateAd = () => {
+//     // Simulate image and tagline generation here based on userInput
+//     // Replace this with your actual logic for generating images and taglines
+
+//     // For simplicity, we'll use placeholders
+//     const generatedImage = "image-url-placeholder";
+//     const generatedTaglines = ["Tagline 1", "Tagline 2"];
+
+//     this.setState({ generatedImage, generatedTaglines });
+//   };
+
+// //   render() {
+// //     return (
+// //       <div className="App">
+// //         <div className="section">
+// //           <h2>User Input</h2>
+// //           <input
+// //             type="text"
+// //             value={this.state.userInput}
+// //             onChange={this.handleInputChange}
+// //           />
+// //           <button onClick={this.generateAd}>Generate Ad</button>
+// //         </div>
+
+// //         <div className="section">
+// //           <h2>Generated Image</h2>
+// //           <img src={this.state.generatedImage} alt="Generated Ad" />
+// //         </div>
+
+// //         <div className="section">
+// //           <h2>Generated Taglines</h2>
+// //           <ul>
+// //             {this.state.generatedTaglines.map((tagline, index) => (
+// //               <li key={index}>{tagline}</li>
+// //             ))}
+// //           </ul>
+// //         </div>
+// //       </div>
+// //     );
+// //   }
+// // }
+
+// export default App;
