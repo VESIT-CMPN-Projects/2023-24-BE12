@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from langchain.llms import OpenAI
+import langchain_openai
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from flask import Flask, request, jsonify
@@ -20,7 +20,7 @@ def run_script_tagline():
     data = request.get_json()
     print('Received data from React:', data)
     openai_api_key="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"
-    llm=OpenAI(temperature=0.7,openai_api_key=openai_api_key)
+    llm=langchain_openai.OpenAI(temperature=0.7,openai_api_key=openai_api_key)
     prompt_template_name=PromptTemplate(
       input_variables=['data'],
       template="This is the product description of a new Dove product: {data} .Give me a new promotional product tagline that is similar to what Dove uses as product taglines"
@@ -36,7 +36,7 @@ def run_script_prompt_maker():
     data = request.get_json()
     print('Received data from React:', data)
     openai_api_key="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"
-    llm=OpenAI(temperature=0.7,openai_api_key=openai_api_key)
+    llm=langchain_openai.llms.OpenAI(temperature=0.7,openai_api_key=openai_api_key)
     prompt_template_name=PromptTemplate(
       input_variables=['data'],
       template= """learn from this data: ["prompt": "convert the  design friendly image generation prompt to image caption format. this is the prompt: Design an image for our 'Soap Bar' with 'rectangular white box' and 'go fresh' green text", "completion": "Women's white soap bar, white rectangular soap box, front-facing, at an angle such that the left edge of the soap box is prominently visible, blue color gradient box covering the right side of the soap box fully, picture of a stream of light blue color cream flowing into a puddle of light blue color cream is placed at the left side of the soap box on top of the gradient box, 'beauty' below which 'cream bar' dark blue color text written below the logo, clip-art of a white color drop with golden border inside which '1/4' dark blue color text is written and beside the drop is 'moisturizing cream' white color text is written, white plain background"]
@@ -74,18 +74,18 @@ def run_script_image():
   #Get input data from the request sent by the React app
   data = request.get_json()
   print('Received data from React:', data)
-  url = "http://127.0.0.1:7860"
+  url = "https://697a-3-135-152-169.ngrok-free.app"
   endpoint = "/sdapi/v1/txt2img"
   full_url = f'{url}{endpoint}'
-  data=str("<lora:dove_750_final-09:1>"+str(data))
+  data=str("<lora:dove_750_final-09:2>"+str(data))
   print(data)
   payload = {
     "prompt": data,
     "sampler_name": "DPM++ 2M Karras",
     "batch_size": 1,
     "n_iter": 1,
-    "steps": 20,
-    "cfg_scale": 7,
+    "steps": 30,
+    "cfg_scale": 9,
     "width": 512,
     "height": 512,
     "refiner_checkpoint": "",
