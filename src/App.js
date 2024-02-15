@@ -4,14 +4,14 @@ import axios from "axios";
 
 const YourComponent = () => {
   const [productDescription, setProductDescription] = useState("");
-  const [generatedImage, setGeneratedImage] = useState(null);
+  const [generatedImages, setGeneratedImages] = useState([]);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const [selectedTaglines, setSelectedTaglines] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleGenerateAd = () => {
     setLoading(true);
-
     sendProductDescriptionToGenImage(productDescription);
     sendProductDescriptionToFlaskTagline(productDescription);
   };
@@ -34,22 +34,16 @@ const YourComponent = () => {
   };
 
   const sendProductDescriptionToFlaskPrompt = (productDescription) => {
-    // Define the Flask API URL
     const flaskURL = 'http://localhost:5000/run_script_prompt_maker';
   
-    // Make a POST request to your Flask API
     axios.post(flaskURL, { data: productDescription })
       .then(response => {
-        // Handle the response from Flask
         console.log(response.data);
-  
-        // Set the response as the taglines
         if (response.data) {
           setProductDescription([response.data]);
         }
       })
       .catch(error => {
-        // Handle errors (e.g., display an error message)
         console.error('Error:', error);
       });
   };
@@ -59,10 +53,13 @@ const YourComponent = () => {
 
     axios.post(flaskURL, { data: productDescription })
       .then(response => {
-        if (response.data && response.data.image) {
-          const img = new Image();
-          img.src = `data:image/png;base64,${response.data.image}`;
-          setGeneratedImage(img);
+        if (response.data && response.data.images) {
+          const images = response.data.images.map(imageData => {
+            const img = new Image();
+            img.src = `data:image/png;base64,${imageData}`;
+            return img;
+          });
+          setGeneratedImages(images);
         } else {
           console.error('Invalid response from Flask:', response.data);
           setError('Failed to generate image. Please try again.');
@@ -75,6 +72,10 @@ const YourComponent = () => {
       .finally(() => setLoading(false));
   };
 
+  const handleImageClick = (index) => {
+    setSelectedImageIndex(index);
+  };
+
   const handleRandomQuery = () => {
     setLoading(true);
     sendProductDescriptionToFlaskPrompt(productDescription);
@@ -82,9 +83,6 @@ const YourComponent = () => {
 
   return (
     <div>
-      {/* Header Section */}
-      {/* ... (unchanged) */}
-
       <section>
         <h2>Here are the generated taglines for the product</h2>
         <div>
@@ -98,21 +96,23 @@ const YourComponent = () => {
         {loading && <p>Loading...</p>}
       </section>
 
-      {/* Generated Image Section */}
-      <section>
-        {generatedImage && (
-          <div>
-            <h2 className="animated-heading">
-              Here is the generated image for the product
-            </h2>
-            <img src={generatedImage.src} alt="Generated Product" />
-          </div>
-        )}
-        {error && <p className="error-message">{error}</p>}
-        {loading && <p>Loading...</p>}
+      <section id="parentSection">
+        <h2 className="animated-heading">
+          Here are the generated images for the product
+        </h2>
+        <div className="image-grid">
+          {generatedImages.map((img, index) => (
+            <div
+              key={index}
+              className={`image-container ${selectedImageIndex !== null && selectedImageIndex !== index ? 'hidden' : ''}`}
+              onClick={() => handleImageClick(index)}
+            >
+              <img src={img.src} alt={`Generated ${index}`} />
+            </div>
+          ))}
+        </div>
       </section>
 
-      {/* Random Query and Generate AD Section */}
       <section>
         <button onClick={handleRandomQuery}>Convert To Image Caption</button>
         <input

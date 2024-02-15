@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Text Editor</title>
+<style>
+    #canvas-container {
+        position: relative;
+    }
+
+    canvas {
+        border: 1px solid #ccc;
+    }
+
+    #toolbar {
+        padding: 10px;
+        background-color: #f0f0f0;
+        border-bottom: 1px solid #ccc;
+    }
+</style>
+</head>
+<body>
+<div id="toolbar">
+    <label for="text">Text:</label>
+    <input type="text" id="text" value="Sample Text">
+    <label for="fontSize">Font Size:</label>
+    <input type="number" id="fontSize" value="20">
+    <label for="fontStyle">Font Style:</label>
+    <select id="fontStyle">
+        <option value="Arial">Arial</option>
+        <option value="Helvetica">Helvetica</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Courier New">Courier New</option>
+        <!-- Add more fonts as needed -->
+    </select>
+    <label for="textColor">Text Color:</label>
+    <input type="color" id="textColor" value="#000000">
+    <label for="imageUpload">Upload Image:</label>
+    <input type="file" id="imageUpload">
+</div>
+<div id="canvas-container">
+    <canvas id="canvas" width="500" height="500"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+<script>
+    var canvas = new fabric.Canvas('canvas');
+
+    var defaultText = "Sample Text";
+    var defaultFontSize = 20;
+    var defaultFontStyle = "Arial";
+    var defaultTextColor = "#000000";
+
+    document.getElementById('imageUpload').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+            var img = new Image();
+            img.onload = function() {
+                var fabricImg = new fabric.Image(img);
+                fabricImg.set({ left: 0, top: 0, width: canvas.width, height: canvas.height });
+                canvas.setBackgroundImage(fabricImg, canvas.renderAll.bind(canvas));
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    var textObject = new fabric.Text(defaultText, {
+        left: 100,
+        top: 100,
+        fontSize: defaultFontSize,
+        fontFamily: defaultFontStyle,
+        fill: defaultTextColor
+    });
+
+    canvas.add(textObject);
+
+    // Event listeners to update text object on canvas when toolbar inputs change
+    document.getElementById('text').addEventListener('input', function() {
+        textObject.text = this.value;
+        canvas.renderAll();
+    });
+
+    document.getElementById('fontSize').addEventListener('input', function() {
+        textObject.fontSize = parseInt(this.value);
+        canvas.renderAll();
+    });
+
+    document.getElementById('fontStyle').addEventListener('change', function() {
+        textObject.fontFamily = this.value;
+        canvas.renderAll();
+    });
+
+    document.getElementById('textColor').addEventListener('input', function() {
+        textObject.set('fill', this.value);
+        canvas.renderAll();
+    });
+</script>
+</body>
+</html>

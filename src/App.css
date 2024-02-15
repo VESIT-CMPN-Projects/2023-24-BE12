@@ -147,6 +147,37 @@ header h1 {
   }
 }
 
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image-container {
+  border: 1px solid #ccc;
+  padding: 5px;
+  cursor: pointer;
+  transition: transform 0.3s, border-color 0.3s; /* Add transition for smooth animation */
+}
+
+.image-container:hover {
+  border-color: blue; /* Change border color on hover */
+  transform: scale(1.05); /* Enlarge the image on hover */
+}
+
+.image-container.selected {
+  border-color: blue; /* Change border color for selected image */
+}
+
+.image-container.hidden {
+  display: none; /* Hide images not selected */
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
+
 
 
 
