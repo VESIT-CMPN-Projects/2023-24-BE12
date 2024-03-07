@@ -74,7 +74,7 @@ def run_script_image():
     # Get input data from the request sent by the React app
     data = request.get_json()
     print('Received data from React:', data)
-    url = "https://0b2a-3-135-152-169.ngrok-free.app/sdapi/v1/txt2img"
+    url = "https://56b6-3-135-152-169.ngrok-free.app/sdapi/v1/txt2img"
     data_str = "<lora:soap_only:1>" + str(data.get("data"))
     print(data_str)
     payload = {

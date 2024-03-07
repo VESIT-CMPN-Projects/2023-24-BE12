@@ -317,3 +317,18 @@ body {
     transform: translateY(-50%) ;
     transition: 1s;
 }
+
+
+.radio-group {
+  display: flex;
+  margin-top: 10px; /* Adjust spacing as needed */
+}
+
+.radio-group label {
+  
+  margin: 15px; /* Adjust spacing as needed */
+}
+
+.radio-group input[type="radio"] {
+  /* margin-right: 5px; Adjust spacing as needed */
+}
