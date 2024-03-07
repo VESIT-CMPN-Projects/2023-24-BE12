@@ -1,24 +1,4 @@
-/* App.css (or create a separate CSS file for your styles) */
 
-/* Header Styles */
-header {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-header img {
-  width: 100px;
-  height: 100px;
-}
-
-/* Taglines Section Styles */
-section:nth-child(2) {
-  background-color: #f9f9f9;
-  padding: 20px;
-  text-align: center;
-}
 
 h2.animated-heading {
   font-size: 24px;
@@ -26,10 +6,10 @@ h2.animated-heading {
 }
 
 /* Image Section Styles */
-section:nth-child(3) {
+/* section:nth-child(3) {
   text-align: center;
   margin: 20px;
-}
+} */
 
 img {
   max-width: 100%;
@@ -37,32 +17,24 @@ img {
 }
 
 /* Random Query and Generate AD Section Styles */
-section:nth-child(4) {
+/* section:nth-child(4) {
   background-color: #f9f9f9;
   padding: 20px;
   text-align: center;
-}
+} */
 
-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  cursor: pointer;
-}
 
-input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin: 5px;
-}
+
+
 
 @keyframes typewriter {
   from {
-    width: 0;
+    margin-left: -100%;
+    width: 300%; 
   }
+
   to {
+    margin-left: 0%;
     width: 100%;
   }
 }
@@ -72,14 +44,7 @@ input {
 /* ... (previous styles) ... */
 
 /* Random Query and Generate AD Section Styles */
-section:nth-child(4) {
-  background-color: #f9f9f9;
-  padding: 20px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 
 button {
   background-color: #007bff;
@@ -102,20 +67,15 @@ input {
   width: 100%; /* Full width */
 }
 
-@keyframes typewriter {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
+
 
 /* App.css (or your CSS file) */
 
 /* Header Styles */
 header {
-  background-color: #333;
+  /* background-color: #333;
+   */
+   background: linear-gradient(to right, #333, #929292);
   color: white;
   display: flex; /* Add flex display */
   align-items: center; /* Vertically center content */
@@ -128,21 +88,115 @@ header img {
   margin-right: 10px; /* Add margin for spacing between the logo and text */
 }
 
+/* ... existing header styles ... */
+
+.tagline {
+  /* margin-left: 10px;
+  font-style: italic;
+  font-size: 1.2em;
+  text-decoration: underline 2px #ccc; 
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);  */
+  color: #333;
+  margin-left: 10px;
+  font-weight: bold;
+  font-size: 1.1em;
+  background: linear-gradient(to right, #f2f2f2, #929292); /* Dove white/silver gradient */
+  text-decoration: underline 2px #ccc; /* Underline color and thickness */
+  padding: 5px 10px; /* Add some padding */
+  border-radius: 0px 8px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
 header h1 {
   margin: 0; /* Remove default margin for h1 */
 }
 
+.search-bar {
+  height: 50px;
+  width: 80%;
+  margin: 80px 120px 50px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar input[type="text"] {
+  flex: 1;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+.search-bar input[type="text"]:focus {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.button-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  /* background-color: cyan; */
+}
+.button {
+  background: linear-gradient(to right, #dddddd, #fff); /* Dove white/silver gradient */
+  border: black;
+  border: #007bff;
+  margin: 20px;
+  border-radius: 20px; /* Round corners */
+  padding: 10px 20px;
+  /* gap: 100px; */
+  /* margin-left: 200px; */
+  font-size: 16px;
+  color: #333; /* Dove dark gray */
+  cursor: pointer;
+  
+  /* gap: 100px; */
+   /* Subtle shadow */
+}
+
+
+
+.button:hover {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.button:focus {
+  outline: #333;
+  outline: none; /* Remove default outline */
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2); /* Inner shadow on focus */
+}
+
+
+
+
+
+.caption-class{
+  display: flex;
+  align-items: self-start;
+}
+
 .typewriter-animation {
-  display: inline-block;
+  /* align-items: center;
+  justify-content: center; */
+  /* display: flex; */
   overflow: hidden;
-  animation: typewriter 1s steps(15) 1s forwards;
+  animation: typewriter 2s forwards;
 }
 
 @keyframes typewriter {
   from {
-    width: 0;
+    margin-left: -100%;
+    width: 300%; 
   }
+
   to {
+    margin-left: 0%;
     width: 100%;
   }
 }
@@ -181,3 +235,85 @@ header h1 {
 
 
 
+
+
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f4f4f4;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.container {
+  display: block;
+  justify-content: space-between;
+  /* flex-wrap: wrap; */
+}
+
+
+
+.card {
+  /* display: block; */
+  width: 32%;
+  overflow: hidden;
+  height: auto;
+  border-radius: 10px;
+  margin: 20px;
+  position: relative;
+  transition: 0.5s;
+  /* display: flex; */
+  /* justify-content: center;
+  align-items: center; */
+}
+
+.card img {
+  height: 100%;
+  width: 100%;
+  /* filter: grayscale(100%); */
+  object-fit: cover;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 10px #333);
+}
+
+.card:hover img {
+    /* filter: grayscale(0); */
+}
+
+.card figcaption{
+    position: absolute;
+    bottom: 0;
+    width: fit-content;
+    height: 16%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+    color: #fff;
+    padding: 25px;
+    opacity: 0;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.card:hover figcaption{
+    opacity: 1;
+    bottom: 40%;
+    transform: translateY(-50%) ;
+    transition: 1s;
+}
