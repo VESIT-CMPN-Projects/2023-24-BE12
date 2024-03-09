@@ -64,7 +64,7 @@ input {
   padding: 15px; /* Increased size */
   border: 1px solid #ccc;
   margin: 5px;
-  width: 100%; /* Full width */
+  width: 40px; /* Full width */
 }
 
 
@@ -260,25 +260,25 @@ body {
 }
 
 .container {
-  display: block;
-  justify-content: space-between;
-  /* flex-wrap: wrap; */
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap:wrap ;
 }
 
 
 
 .card {
-  /* display: block; */
-  width: 32%;
+  display: block;
+  /* width: 40%; */
   overflow: hidden;
   height: auto;
   border-radius: 10px;
   margin: 20px;
   position: relative;
   transition: 0.5s;
-  /* display: flex; */
-  /* justify-content: center;
-  align-items: center; */
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 }
 
 .card img {

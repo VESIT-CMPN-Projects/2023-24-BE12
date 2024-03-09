@@ -21,7 +21,6 @@ const YourComponent = () => {
   const [tpVisibility, setTpVisibility] = useState(false);
   const [selectedProductType, setProductSelectedType] = useState("");
 
-
   const selectedImages = (src) => {
     setTpVisibility(true);
     console.log("img selected");
@@ -150,31 +149,30 @@ const YourComponent = () => {
             onChange={(e) => setProductDescription(e.target.value)}
             // style={{ textAlign: "center", width: "80%", margin: "20px auto" }}
           />
-          </section>
-            {/* Radio buttons for product type */}
-  <div className="radio-group">
-    <label>
-      <input
-        type="radio"
-        name="productType"
-        value="Lunchbox"
-        checked={selectedProductType === "Lunchbox"}
-        onChange={(e) => setProductSelectedType(e.target.value)}
-      />
-      Lunchbox
-    </label>
-    <label>
-      <input
-        type="radio"
-        name="productType"
-        value="Backpack"
-        checked={selectedProductType === "Backpack"}
-        onChange={(e) => setProductSelectedType(e.target.value)}
-      />
-      Backpack
-    </label>
-  </div>
-        
+        </section>
+        {/* Radio buttons for product type */}
+        <div className="radio-group">
+          <label>
+            <input
+              type="radio"
+              name="productType"
+              value="Lunchbox"
+              checked={selectedProductType === "Lunchbox"}
+              onChange={(e) => setProductSelectedType(e.target.value)}
+            />
+            Lunchbox
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="productType"
+              value="Backpack"
+              checked={selectedProductType === "Backpack"}
+              onChange={(e) => setProductSelectedType(e.target.value)}
+            />
+            Backpack
+          </label>
+        </div>
 
         {/* Buttons "Convert To Image Caption" and "Generate AD" side-by-side */}
         <section className="button-section">
@@ -210,7 +208,7 @@ const YourComponent = () => {
 
                 <input
                   width={"5%"}
-                  type="checkbox"
+                  type="radio"
                   checked={selectedTaglineIndex === index}
                   onChange={() => handleTaglineCheckboxChange(index, tagline)}
                 />
@@ -229,7 +227,7 @@ const YourComponent = () => {
             {generatedImages.map((img, index) => (
               <div key={index}>
                 <input
-                  type="checkbox"
+                  type="radio"
                   checked={selectedImageIndex === index}
                   onChange={() => selectedImages(img.src)}
                 />
