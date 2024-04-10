@@ -23,7 +23,7 @@ def run_script_tagline():
     llm=langchain_openai.OpenAI(temperature=0.7,openai_api_key=openai_api_key)
     prompt_template_name=PromptTemplate(
       input_variables=['data'],
-      template="This is the product description of a new Dove product: {data} .Give me a new promotional product tagline that is similar to what Dove uses as product taglines"
+      template="This is the product description of a product water bottle with the brand name 'AquaPure': {data} .Give me a promotional product tagline"
     )
     name_chain=LLMChain(llm=llm, prompt=prompt_template_name)
     response=name_chain({'data': data})
@@ -74,7 +74,7 @@ def run_script_image():
     # Get input data from the request sent by the React app
     data = request.get_json()
     print('Received data from React:', data)
-    url = "https://9a27-3-20-229-229.ngrok-free.app/sdapi/v1/txt2img"
+    url = "https://572b-3-135-152-169.ngrok-free.app/sdapi/v1/txt2img"
     data_str = "<lora:aq_train_1:2>" + str(data.get("data"))
     print(data_str)
     payload = {

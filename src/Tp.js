@@ -26,7 +26,7 @@ const Tp = () => {
   //   );
   // });
   return (
-    <div>
+    <div className="appp">
       <header>
         <img src="./AdGenAi.png" alt="Your Website Logo" />
         <span className="tagline">Make magic with AI-powered tools.</span>
@@ -43,6 +43,7 @@ const Tp = () => {
           <p>{finalTagLine}</p>
         </>
       </div>
+      <div style={{ height: "5vh" }}></div>
     </div>
   );
 };

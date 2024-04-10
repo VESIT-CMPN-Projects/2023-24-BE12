@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const YourComponent = () => {
-  const [productDescription, setProductDescription] = useState("");
+  // const [productDescription, setProductDescription] = useState("");
   const [generatedImages, setGeneratedImages] = useState([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const [selectedTaglines, setSelectedTaglines] = useState([]);
@@ -21,6 +21,9 @@ const YourComponent = () => {
   const [tpVisibility, setTpVisibility] = useState(false);
   const [selectedProductType, setProductSelectedType] = useState("");
 
+  const [productDescription, setProductDescription] = useState(
+    "A glass water bottle standing straight placed summer outdoors in night light on a wooden table"
+  );
   const selectedImages = (src) => {
     setTpVisibility(true);
     console.log("img selected");
@@ -138,7 +141,7 @@ const YourComponent = () => {
         <span className="tagline">Make magic with AI-powered tools.</span>
       </header>
 
-      <div>
+      <div class="appp">
         <section>
           {/* Search bar centered with text "Enter your product description" */}
           <input
@@ -146,12 +149,13 @@ const YourComponent = () => {
             type="text"
             placeholder="Enter your product description"
             value={productDescription}
+            // value="A glass water bottle standing straight placed summer outdoors in night light on a wooden table "
             onChange={(e) => setProductDescription(e.target.value)}
             // style={{ textAlign: "center", width: "80%", margin: "20px auto" }}
           />
         </section>
         {/* Radio buttons for product type */}
-        <div className="radio-group">
+        {/* <div className="radio-group">
           <label>
             <input
               type="radio"
@@ -172,7 +176,7 @@ const YourComponent = () => {
             />
             Backpack
           </label>
-        </div>
+        </div> */}
 
         {/* Buttons "Convert To Image Caption" and "Generate AD" side-by-side */}
         <section className="button-section">
@@ -247,7 +251,9 @@ const YourComponent = () => {
           </a>
           {/* </Link> */}
         </section>
+        <div style={{ height: "40vh" }}></div>
       </div>
+
       {/* <Tp visible={tpVisibility} images={imageArray} /> */}
     </div>
   );
