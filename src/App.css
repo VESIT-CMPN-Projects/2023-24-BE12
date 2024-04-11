@@ -238,11 +238,59 @@ header h1 {
   height: auto;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
 
+.button-container input[type="file"] {
+  display: none;
+}
 
+.button-container label {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
+.button-container label:hover {
+  background-color: #0056b3;
+}
 
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
 
+.dotted-box {
+  width: 512px;
+  height: 256px;
+  border: 6px dashed #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dotted-box input[type="file"] {
+  display: none;
+}
+
+.dotted-box label {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dotted-box label:hover {
+  background-color: #0056b3;
+}
 
 
 

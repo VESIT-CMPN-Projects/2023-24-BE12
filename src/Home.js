@@ -12,8 +12,8 @@ const Home = (props) => {
   return (
     <div className="home-container">
       <Helmet>
-        <title>Intrepid Masculine Lion</title>
-        <meta property="og:title" content="Intrepid Masculine Lion" />
+        <title>ADGenAI</title>
+        <meta property="og:title" content="ADGenAI" />
       </Helmet>
       <div className="home-header">
         <header

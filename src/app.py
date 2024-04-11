@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import langchain_openai
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
@@ -9,10 +9,79 @@ import requests
 import io
 import base64
 from PIL import Image
+from io import BytesIO
+import cv2
+import numpy as np
 
+def is_red_or_green(pixel):
+    # Red or green in RGB. This function may need adjustment based on how you define red or green.
+    return (pixel[2] > 128 and pixel[1] < 128 and pixel[0] < 128) or (pixel[1] > 128 and pixel[2] < 128 and pixel[0] < 128)
+
+def add_text(image, text, region_coords):
+    # Extract the corner coordinates of the region
+    x1, y1, x2, y2 = region_coords
+
+    # Define some parameters
+    text_offset_x = 10
+    text_offset_y = 30
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_scale = 1
+    font_color = (255, 255, 255)  # White color
+    thickness = 2
+
+    # Iterate over each word in the text and wrap it if it overflows the region
+    words = text.split()
+    lines = []
+    line = ""
+    for word in words:
+        test_line = line + word + " "
+        # Check if adding this word exceeds the width of the region
+        (text_width, text_height), _ = cv2.getTextSize(test_line, font, font_scale, thickness)
+        if text_width > (x2 - x1 - 2 * text_offset_x):  # 2 * text_offset_x for padding on both sides
+            lines.append(line.strip())
+            line = word + " "
+        else:
+            line = test_line
+    lines.append(line.strip())
+
+    # If text overflows, reduce font size
+    if len(lines) * text_height > (y2 - y1 - 2 * text_offset_y):  # 2 * text_offset_y for padding on both sides
+        font_scale = (y2 - y1 - 2 * text_offset_y) / (len(lines) * text_height) * font_scale
+
+    # Write each line of text to the image
+    y = y1 + text_offset_y
+    for line in lines:
+        # Get the size of the line
+        (text_width, text_height), _ = cv2.getTextSize(line, font, font_scale, thickness)
+        # Calculate the x-coordinate to center the text horizontally
+        x = x1 + (x2 - x1 - text_width) // 2
+        # Write the text
+        cv2.putText(image, line, (x, y), font, font_scale, font_color, thickness)
+        # Move to the next line
+        y += int(text_height * 1.5)  # Add some space between lines
+
+    return image
+
+
+# def decode_base64_to_image(encoding):
+#     if encoding.startswith("data:image/"):
+#         encoding=encoding.split(";")[1].split(",")[1]
+#     image=Image.open(io.BytesIO(base64.b64decode(encoding)))
+#     return image
+
+# def encode_pil_to_base64(image):
+#     with io.BytesIO() as output_bytes:
+#         image.save(output_bytes, format="PNG")
+#         bytes_data=output_bytes.getvalue()
+#     return base64.b64encode(bytes_data).decode("utf-8")
 
 app = Flask(__name__)
-CORS(app, resources={r"/run_script_tagline": {"origins": "http://localhost:3000"}, r"/run_script_prompt_maker": {"origins": "http://localhost:3000"}, r"/run_script_image": {"origins": "http://localhost:3000"}})
+CORS(app, resources={
+    r"/run_script_tagline": {"origins": "http://localhost:3000"},
+    r"/run_script_prompt_maker": {"origins": "http://localhost:3000"},
+    r"/run_script_image": {"origins": "http://localhost:3000"},
+    r"/run_merge": {"origins": "http://localhost:3000"},
+})
 
 @app.route('/run_script_tagline', methods=['POST'])
 def run_script_tagline():
@@ -74,9 +143,11 @@ def run_script_image():
     # Get input data from the request sent by the React app
     data = request.get_json()
     print('Received data from React:', data)
-    url = "https://572b-3-135-152-169.ngrok-free.app/sdapi/v1/txt2img"
-    data_str = "<lora:aq_train_1:2>" + str(data.get("data"))
+    url = "https://cdc5-3-20-229-229.ngrok-free.app/sdapi/v1/txt2img"
+    data_str = "<lora:aq_train_7:2>" +"glxbtz" +str(data.get("data"))
     print(data_str)
+    # controlnet_image=Image.open(r"C:\\Program Files\\GitHub\\adgenai\\src\\masks\\mask (1).png")
+    # controlnet_image_data=encode_pil_to_base64(controlnet_image)
     payload = {
         "prompt": data_str,
         "sampler_name": "Euler a",
@@ -114,6 +185,129 @@ def run_script_image():
 
     return jsonify({'error': 'Image generation failed'})
 
+@app.route('/run_merge', methods=['POST'])
+def run_merge():
+    # Check if the request contains the necessary files
+    if 'generatedImage' not in request.files or 'maskImage' not in request.files:
+        return jsonify({'error': 'Missing images'}), 400
+    
+    # Get the uploaded images
+    generated_image = request.files['generatedImage']
+    mask_image = request.files['maskImage']
+    generated_image = cv2.imdecode(np.fromstring(generated_image.read(), np.uint8), cv2.IMREAD_COLOR)
+    mask_image = cv2.imdecode(np.fromstring(mask_image.read(), np.uint8), cv2.IMREAD_COLOR)
+    box_size=[]
+    x_y=[]
+    image = mask_image
+    height, width = image.shape[:2]
+    ############################################################################
+
+    #(0,0)
+    x = 5
+    y = 5
+    k = 5
+
+    box_region = image[0:y, 0:x]
+
+    while 1:
+        if np.any([is_red_or_green(pixel) for row in box_region for pixel in row]):
+            break
+        x += 5
+        y += 5
+        k += 5
+        if y >= height or x >= width:
+            break
+        box_region = image[0:y, 0:x]
+
+    print("K is: ",k)
+    x_y.append([0,0,x,y])
+    box_size.append(k*k)
+    print("Box dimensions (x, y):", x, ",", y)
+
+    ###################################################################################
+    #(512,0)
+    x = 507
+    y = 5
+    k = 5
+
+    box_region = image[0:y, x:512]
+
+    while 1:
+        if np.any([is_red_or_green(pixel) for row in box_region for pixel in row]):
+            break
+        x -= 5
+        y += 5
+        k += 5
+        box_region = image[0:y, x:512]
+
+    print("K is: ",k)
+    x_y.append([x,0,512,y])
+    box_size.append(k*k)
+    print("Box dimensions (x, y):", x, ",", y)
+
+    #############################################################################
+    #(0,512)
+    x = 5
+    y = 507
+    k = 5
+
+    box_region = image[y:512, 0:x]
+
+    while 1:
+        if np.any([is_red_or_green(pixel) for row in box_region for pixel in row]):
+            break
+        x += 5
+        y -= 5
+        k += 5
+        box_region = image[y:512, 0:x]
+
+    print("K is: ",k)
+    x_y.append([0,y,x,512])
+    box_size.append(k*k)
+    print("Box dimensions (x, y):", x, ",", y)
+
+    #############################################################################
+    #(512,512)
+    x = 507
+    y = 507
+    k = 5
+
+    box_region = image[y:512, x:512]
+
+    while 1:
+        if np.any([is_red_or_green(pixel) for row in box_region for pixel in row]):
+            break
+        x -= 5
+        y -= 5
+        k += 5
+        box_region = image[y:512, x:512]
+
+    print("K is: ",k)
+    x_y.append([x,y,512,512])
+    box_size.append(k*k)
+    print("Box dimensions (x, y):", x, ",", y)
+
+    ###################################################################
+
+    i=box_size.index(max(box_size))
+    print(x_y[i])
+
+    region_coords = x_y[i]
+
+    # Prepare the image for adding text
+    image_with_text = generated_image
+
+    # Define text content
+    text = "Your long text here, which may overflow the region. This is just an example text."
+
+    # Add text to the image
+    image_with_text = add_text(image_with_text, text, region_coords)    
+    
+    retval, buffer = cv2.imencode('.jpg', image_with_text)
+    generated_image_with_text_base64 = base64.b64encode(buffer).decode('utf-8')
+    print(generated_image_with_text_base64)
+    # Return the base64 string of the resulting image to the React app
+    return jsonify({'image_with_text': generated_image_with_text_base64})
 
 if __name__ == '__main__':
     app.run(debug=True)

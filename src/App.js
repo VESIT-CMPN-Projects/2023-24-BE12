@@ -20,10 +20,18 @@ const YourComponent = () => {
   const [imageArray, setImageArray] = useState([]);
   const [tpVisibility, setTpVisibility] = useState(false);
   const [selectedProductType, setProductSelectedType] = useState("");
-
-  const [productDescription, setProductDescription] = useState(
-    "A glass water bottle standing straight placed summer outdoors in night light on a wooden table"
-  );
+  
+  const [productDescription, setProductDescription] = useState(() => {
+    const userAnswersString = localStorage.getItem('userAnswers');
+    console.log(userAnswersString)
+    if (userAnswersString) {
+      const parsedAnswers = JSON.parse(userAnswersString);
+      return parsedAnswers; // Return parsed answers if found
+    } else {
+      return []; // Return empty array if not found
+    }
+  });
+  
   const selectedImages = (src) => {
     setTpVisibility(true);
     console.log("img selected");
@@ -149,35 +157,11 @@ const YourComponent = () => {
             type="text"
             placeholder="Enter your product description"
             value={productDescription}
-            // value="A glass water bottle standing straight placed summer outdoors in night light on a wooden table "
             onChange={(e) => setProductDescription(e.target.value)}
             // style={{ textAlign: "center", width: "80%", margin: "20px auto" }}
           />
         </section>
-        {/* Radio buttons for product type */}
-        {/* <div className="radio-group">
-          <label>
-            <input
-              type="radio"
-              name="productType"
-              value="Lunchbox"
-              checked={selectedProductType === "Lunchbox"}
-              onChange={(e) => setProductSelectedType(e.target.value)}
-            />
-            Lunchbox
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="productType"
-              value="Backpack"
-              checked={selectedProductType === "Backpack"}
-              onChange={(e) => setProductSelectedType(e.target.value)}
-            />
-            Backpack
-          </label>
-        </div> */}
-
+        
         {/* Buttons "Convert To Image Caption" and "Generate AD" side-by-side */}
         <section className="button-section">
           <button className="button" onClick={handleRandomQuery}>
