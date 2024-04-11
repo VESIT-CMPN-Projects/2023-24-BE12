@@ -109,7 +109,21 @@ body {
   border: 5px solid #234668;
   cursor: pointer;
 }
-
+.quizButton1 {
+  font-size: x-large;
+  width: 120px;
+  font-size: 16px;
+  margin-top: -120px;
+  color: #ffffff;
+  background-color: #252d4a;
+  border-radius: 15px;
+  display: flex;
+  padding: 5px;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 5px solid #234668;
+  cursor: pointer;
+}
 .correct {
   background-color: #2f922f;
 }

@@ -78,7 +78,9 @@ input {
 header {
   /* background-color: #333;
    */
-   background: linear-gradient(to right, #333, #929292);
+   /* background: linear-gradient(to right, #333, #929292); */
+   background-color:#000000;
+
   color: white;
   display: flex; /* Add flex display */
   align-items: center; /* Vertically center content */
@@ -100,7 +102,7 @@ header img {
   text-decoration: underline 2px #ccc; 
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);  */
   color: #333;
-  margin-left: 10px;
+  margin-left: 200px;
   font-weight: bold;
   font-size: 1.1em;
   background: linear-gradient(to right, #f2f2f2, #929292); /* Dove white/silver gradient */
@@ -117,8 +119,9 @@ header h1 {
 .search-bar {
   color: #000000;
   /* col */
+  font-size: large;
   font-weight: bolder;
-  height: 50px;
+  height: 65px;
   width: 80%;
   margin: 80px 120px 50px;
   display: flex;
@@ -144,28 +147,32 @@ header h1 {
 
 .button-section{
   display: flex;
-  align-items: center;
+  align-items: center; 
   justify-content: center;
-  gap: 100px;
+  /* gap: 100px; */
   /* background-color: cyan; */
 }
-.button {
-  background: linear-gradient(to right, #dddddd, #fff); /* Dove white/silver gradient */
-  border: black;
-  border: #007bff;
-  margin: 20px;
-  border-radius: 20px; /* Round corners */
-  padding: 10px 20px;
-  /* gap: 100px; */
-  /* margin-left: 200px; */
-  font-size: 16px;
-  color: #333; /* Dove dark gray */
-  cursor: pointer;
-  
-  /* gap: 100px; */
-   /* Subtle shadow */
-}
 
+.button-sec{
+  color: white;
+  font-size: large;
+  height: 60px;
+  min-width: 200px;
+  align-items: center;
+  transition: 0.3s;
+  font-family: Nunito;
+  font-weight: bold;
+  padding-top: var(--dl-space-space-halfunit);
+  padding-left: var(--dl-space-space-oneandhalfunits);
+  border-radius: 58px;
+  padding-right: var(--dl-space-space-oneandhalfunits);
+  padding-bottom: var(--dl-space-space-halfunit);
+  /* background-color: var(--dl-color-custom-primary1);
+   */
+   background-color: #252d4a;
+   border: 5px solid #234668;
+
+}
 
 
 .button:hover {
@@ -188,9 +195,10 @@ header h1 {
 }
 
 .typewriter-animation {
-  /* align-items: center;
-  justify-content: center; */
-  /* display: flex; */
+  align-items: center;
+  justify-content: center; 
+  margin-top: 32px;
+  display: flex;
   overflow: hidden;
   animation: typewriter 2s forwards;
 }
@@ -335,6 +343,13 @@ body {
   color: red;
   margin-left: 122px;
   margin-top: -41px;
+}
+
+.error-message{
+ margin: 20px 550px;
+ 
+ align-items: center;
+ justify-content: center;
 }
 
 .card {

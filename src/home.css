@@ -13,7 +13,7 @@
   position: fixed;
   align-items: center;
   flex-direction: column;
-  background-color: var(--dl-color-gray-white);
+  background-color: #000000;
 }
 .home-desktop-menu {
   flex: 1;
