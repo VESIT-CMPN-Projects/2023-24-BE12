@@ -88,7 +88,7 @@ def run_script_tagline():
     # Get input data from the request sent by the React app
     data = request.get_json()
     print('Received data from React:', data)
-    openai_api_key="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"
+    openai_api_key=""
     llm=langchain_openai.OpenAI(temperature=0.7,openai_api_key=openai_api_key)
     prompt_template_name=PromptTemplate(
       input_variables=['data'],
@@ -104,7 +104,7 @@ def run_script_prompt_maker():
     # Get input data from the request sent by the React app
     data = request.get_json()
     print('Received data from React:', data)
-    openai_api_key="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"
+    openai_api_key=""
     llm=langchain_openai.llms.OpenAI(temperature=0.7,openai_api_key=openai_api_key)
     prompt_template_name=PromptTemplate(
       input_variables=['data'],
